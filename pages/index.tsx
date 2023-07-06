@@ -1,5 +1,7 @@
+import { List } from '@/components/List';
+import { Loader } from '@/components/Loader';
 import { ServerStatus } from '@/models/globalModels';
-import { Entry, HomeProps, ListItemType, ListType } from '@/models/mainModels';
+import { Entry, HomeProps } from '@/models/mainModels';
 import { callList } from '@/redux/actions/main';
 import { RootState } from '@/redux/reducers/rootReducer';
 import Head from 'next/head'
@@ -55,36 +57,6 @@ const Home = ({
         </div>
       </main>
     </>
-  )
-}
-
-export const Loader = () => {
-  return (
-    <div className='Loader'>Loader...</div>
-  )
-}
-
-export const List = ({ items, onClick }: ListType) => {
-  const [filter, setFilter] = React.useState("")
-  return (
-    <div className='List'>
-      <div className='row'>
-        <div className='col-4 ms-auto'>
-          <input type="text" onChange={(e) => setFilter(e.target.value)} />
-        </div>
-      </div>
-      <div className='row'>
-        {items.map((i, index) => <ListItem key={`ListItem-${index}`} onClick={onClick} item={i} />)}
-      </div>
-    </div>
-  )
-}
-
-export const ListItem = ({ item, onClick }: ListItemType) => {
-  return (
-    <div className='ListItem' onClick={() => onClick(item)}>
-      {item['im:name'].label}
-    </div>
   )
 }
 

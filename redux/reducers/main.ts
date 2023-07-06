@@ -4,6 +4,7 @@ import * as t from "../types";
 
 const MainState: MainStateProps = {
   listStatus: ServerStatus.IDLE,
+  detailStatus: ServerStatus.IDLE,
 };
 
 const main = (state = MainState, action: any) => {
@@ -24,6 +25,22 @@ const main = (state = MainState, action: any) => {
       return {
         ...state,
         listStatus: ServerStatus.FETCH_ERROR,
+      }
+      case t.FETCHING_DETAIL:
+      return {
+        ...state,
+        detailStatus: ServerStatus.FETCHING,
+      }
+    case t.FETCH_DETAIL:
+      return {
+        ...state,
+        detailStatus: ServerStatus.FETCH,
+        detail: action.payload,
+      }
+      case t.FETCH_ERROR_DETAIL:
+      return {
+        ...state,
+        detailStatus: ServerStatus.FETCH_ERROR,
       }
     default:
       return { ...state };

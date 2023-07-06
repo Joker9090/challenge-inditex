@@ -4,10 +4,19 @@ import { ServerStatus } from "./globalModels"
 export type MainStateProps = {
   listStatus: ServerStatus,
   list?: SongsList
+  detailStatus: ServerStatus,
+  detail?: DetailType
 }
 
 export type HomeProps = {
   callList: Function,
+  main: MainStateProps
+}
+
+export type DetailProps = {
+  callDetail: Function,
+  callList: Function,
+  callEpisode: Function,
   main: MainStateProps
 }
 
@@ -110,4 +119,12 @@ export type ListType = {
 export type ListItemType = {
   item: Entry,
   onClick: Function
+}
+
+export type DetailType = {
+
+}
+
+export type EpisodeType = {
+
 }

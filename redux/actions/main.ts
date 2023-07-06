@@ -1,5 +1,5 @@
 import { DispatchEmptyObject, DispatchObject } from "@/models/globalModels";
-import { SongsList } from "@/models/mainModels";
+import { DetailType, EpisodeType, SongsList } from "@/models/mainModels";
 import ApiService from "@/services/ApiService";
 import * as t from "../types";
 
@@ -32,4 +32,39 @@ export const callList = () => (dispatch: DispatchObject<SongsList> & DispatchEmp
     callApi()
   }
   
+}
+
+export const callDetail = (id: string) => (dispatch: DispatchObject<DetailType> & DispatchEmptyObject) => {
+  dispatch({ type: t.FETCHING_DETAIL });
+  const callApi = () => {
+    ApiService.getDetail(id).then(detail => {
+      localStorage.setItem("SongsDataDate", new Date().toDateString())
+    
+      localStorage.setItem("Postcad-"+id, JSON.stringify(detail))
+      dispatch({ type: t.FETCH_DETAIL, payload: detail });
+    }).catch(e => {
+      dispatch({ type: t.FETCH_ERROR_DETAIL });
+    })
+  }
+  const _date = localStorage.getItem("PostcadDate-"+id)
+  const detailData = localStorage.getItem("Postcad-"+id)
+  if (_date && detailData) {
+    const date = new Date(_date)
+     if(lessThanOneHourAgo(date)) callApi()
+     else dispatch({ type: t.FETCH_DETAIL, payload: JSON.parse(detailData) });
+  } else {
+    callApi()
+  }
+  
+}
+
+
+export const callEpisode = (url: string) => (dispatch: DispatchObject<EpisodeType> & DispatchEmptyObject) => {
+  dispatch({ type: t.FETCHING_EPISODE });
+  
+    ApiService.getEpisode(url).then(episode => {
+      dispatch({ type: t.FETCH_EPISODE, payload: episode });
+    }).catch(e => {
+      dispatch({ type: t.FETCH_ERROR_EPISODE });
+    })
 }

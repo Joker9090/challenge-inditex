@@ -16,7 +16,6 @@ export type HomeProps = {
 export type DetailProps = {
   callDetail: Function,
   callList: Function,
-  callEpisode: Function,
   main: MainStateProps
 }
 
@@ -122,9 +121,5 @@ export type ListItemType = {
 }
 
 export type DetailType = {
-
-}
-
-export type EpisodeType = {
-
+  results: any,
 }

@@ -1,5 +1,5 @@
 import { DispatchEmptyObject, DispatchObject } from "@/models/globalModels";
-import { DetailType, EpisodeType, SongsList } from "@/models/mainModels";
+import { DetailType, SongsList } from "@/models/mainModels";
 import ApiService from "@/services/ApiService";
 import * as t from "../types";
 
@@ -56,15 +56,4 @@ export const callDetail = (id: string) => (dispatch: DispatchObject<DetailType> 
     callApi()
   }
   
-}
-
-
-export const callEpisode = (url: string) => (dispatch: DispatchObject<EpisodeType> & DispatchEmptyObject) => {
-  dispatch({ type: t.FETCHING_EPISODE });
-  
-    ApiService.getEpisode(url).then(episode => {
-      dispatch({ type: t.FETCH_EPISODE, payload: episode });
-    }).catch(e => {
-      dispatch({ type: t.FETCH_ERROR_EPISODE });
-    })
 }

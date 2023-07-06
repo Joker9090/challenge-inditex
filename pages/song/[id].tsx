@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import { connect } from "react-redux";
 import React from "react";
 import { DetailProps, DetailType } from "@/models/mainModels";
-import { callDetail, callEpisode, callList } from "@/redux/actions/main";
+import { callDetail, callList } from "@/redux/actions/main";
 import { Loader } from "@/components/Loader";
 import { ServerStatus } from "@/models/globalModels";
 
@@ -16,12 +16,11 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = {
   callDetail,
-  callList,
-  callEpisode
+  callList
 }
 
 
-const Detail = ({ main, callDetail, callList, callEpisode }: DetailProps) => {
+const Detail = ({ main, callDetail, callList }: DetailProps) => {
   const router = useRouter();
 
   const { detailStatus, detail, list, listStatus } = main
@@ -32,12 +31,6 @@ const Detail = ({ main, callDetail, callList, callEpisode }: DetailProps) => {
     }
   }, [router])
 
-  React.useEffect(() => {
-    if (detail && detailStatus == ServerStatus.FETCH) {
-      callEpisode(detail.results[2].episodeUrl)
-      
-    }
-  }, [detailStatus])
 
   console.log("list",list)
   return (
@@ -55,7 +48,7 @@ export const Info = ({detail}: {detail: DetailType}) => {
   return (
     <div className="Info">
       
-      {detail.results.map(i => (
+      {detail.results.map((i: any) => (
         <div key={i.trackId} ><a href={i.previewUrl}>{i.trackName}</a></div>
       ))}
     </div>

@@ -17,7 +17,7 @@ export const EpisodeInfo = ({ episode }: { episode?: EpisodeType | null }) => {
   return (
     <div className="col-12 col-md-8 col-lg-9  mt-4 EpisodeInfo">
       <h2>{episode.trackName}</h2>
-      <p>{episode.shortDescription || episode.description}</p>
+      <div dangerouslySetInnerHTML={{ __html: episode.shortDescription || episode.description}} />
       <video controls={true} autoPlay={true}>
         <source src={episode.previewUrl} type="audio/mpeg" />
       </video>

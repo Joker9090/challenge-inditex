@@ -1,9 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Podcaster
+
+Podcaster is a full responsive application to list the top 100 podcast from itunes. You can click in one of them to see more details about the author and episodes.
+
+Clicking in an episode is going to reproduce the previewTrack
+
+----
+
+
+This application was created with 
+- [Next.js](https://nextjs.org/) v.13
+- [Redux](https://redux.js.org/) v.4
+- [Sass](https://sass-lang.com/) v.1
+- [Axios](https://axios-http.com/docs/intro) v.1
+- [Bootstrap](https://getbootstrap.com/) v.5
+- TypeScript
+- eslint
+- Node 16 (tested with Node 18)
 
 ## Getting Started
 
-First, run the development server:
+After cloning this proyect, it's neccesary to install dependencies with:
+```bash
+npm install
+```
 
+## Development
+
+For development, you can run:
 ```bash
 npm run dev
 # or
@@ -12,27 +35,70 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Build and Production
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+For Production is neccesary to build the application first with:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```bash
+npm run build
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Then to serve the files you can run:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+npm run start
+```
 
 ## Deploy on Vercel
+
+
+*Productive Link* => https://challenge-inditex.vercel.app/
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+## Information
+
+
+#### ApiService and AllOrigin Service
+
+The application is consuming itunes endpoints.
+Sometimes Itunes block us after consuming to much data from their server, so if that endpoint goes wrong there is a retry protocol.
+
+The retry protocol is about calling the same URL with a proxy call with AllOrigin service
+
+This logic is this [ApiService.ts](https://github.com/Joker9090/challenge-inditex/blob/main/services/ApiService.ts) File
+
+
+#### Local Data
+
+There is a feature to save the data from endpoints inside our localstorage data, we can easily change localStorate with indexedDB or SessionStorage if we want.
+
+Inside this file: [main.ts](https://github.com/Joker9090/challenge-inditex/blob/main/redux/actions/main.ts) you can look at this logic, also there is a function called *lessThanOneHourAgo* to check times berfore doing the recall.
+It was requested to be a *lessThanOneDayAgo* but to check the behavior in those days i change that logic to one hour
+
+#### Filtering
+
+The SearchBar in the dashboard is filtering for Author name, Track Name, Release Date and ID, if we want to add more filter options we can take a look at this file [List.tsx](https://github.com/Joker9090/challenge-inditex/blob/main/components/List.tsx)
+
+
+#### Structure
+
+This application has the following structure
+- /components/ => For all React components
+- /pages/ => this folder is a convention for next to connect path resolve with main Containers in react
+- /models/ => folder of models for typescript
+- /styles/ => styles in Sass (those are going to be compresed in build process)
+- /redux/ => Actions, Reducer, Types for redux, Also the rootReducer to connect as HOC in _app.tsx file
+- /utils/ => Folder with helpers functions and parsers
+
+
+## Developer notes
+
+- 6 hours spent for now
+- [Pending] => Test with cypress
+- [Pending] => Add PWA behavior in next
+- [Pending] => Issue with shifting in images

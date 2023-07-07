@@ -15,9 +15,14 @@ This application was created with
 - [Bootstrap](https://getbootstrap.com/) v.5
 - TypeScript
 - eslint
-- Node 16 (tested with Node 18)
+- Node 16
 
 ## Getting Started
+
+it's neccesary to have Node 16 for running this proyect.
+It's recommended to have nvm for handling different versions of node in same machine.
+
+----
 
 After cloning this proyect, it's neccesary to install dependencies with:
 ```bash

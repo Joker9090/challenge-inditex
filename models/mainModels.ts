@@ -1,9 +1,8 @@
-import { RootState } from "@/redux/reducers/rootReducer"
 import { ServerStatus } from "./globalModels"
 
 export type MainStateProps = {
   listStatus: ServerStatus,
-  list?: SongsList
+  list?: PodcastList
   detailStatus: ServerStatus,
   detail?: DetailType
 }
@@ -19,7 +18,7 @@ export type DetailProps = {
   main: MainStateProps
 }
 
-export type SongsList = {
+export type PodcastList = {
   feed: {
     author: Author,
     entry: Entries,
@@ -35,59 +34,59 @@ export type Labeled = {
   label: string,
 }
 export type Author = {
- name: Labeled,
- uri: Labeled
+  name: Labeled,
+  uri: Labeled
 }
 export type Entry = {
   // category: {
+  attributes: {
+    "im:id": string,
+    label: string,
+    scheme: string,
+    term: string
+  }
+  id: Labeled & {
     attributes: {
       "im:id": string,
-      label: string,
-      scheme: string,
-      term: string
     }
-    id: Labeled & {
+  },
+  "im:artist": Labeled & {
+    attributes: {
+      href: string,
+    }
+  },
+  "im:contentType": {
+    attributes: Labeled & {
+      term: string,
+    }
+  },
+  "im:image": {
+    [key: number]: Labeled & {
       attributes: {
-        "im:id": string,
+        height: number
       }
-    },
-    "im:artist": Labeled & {
-      attributes: {
-        href: string,
-      }
-    },
-    "im:contentType": {
-      attributes: Labeled & {
-        term: string,
-      }
-    },
-    "im:image": {
-      [key: number]: Labeled & {
-        attributes: {
-          height: number
-        }
-      }
-    },
-    "im:name": Labeled,
-    "im:price": Labeled & {
-      attributes: {
-        amount: string,
-        currency: string,
-      }
-    },
-    "im:releaseDate": Labeled & {
-      attributes: Labeled
-    },
-    link: Labeled & {
-      attributes: {
-        rel: string,
-        href: string,
-        type: string,
-      }
-    },
-    rights: Labeled,
-    summary: Labeled
-    title: Labeled
+    }
+  },
+  "im:name": Labeled,
+  "im:price": Labeled & {
+    attributes: {
+      amount: string,
+      currency: string,
+    }
+  },
+  "im:releaseDate": Labeled & {
+    attributes: Labeled
+  },
+  link: Labeled & {
+    attributes: {
+      rel: string,
+      href: string,
+      type: string,
+    }
+  },
+  rights: Labeled,
+  summary: Labeled
+  title: Labeled
   // }
 }
 
@@ -117,9 +116,40 @@ export type ListType = {
 
 export type ListItemType = {
   item: Entry,
-  onClick: Function
+  onClick: Function,
+  number: number
 }
 
 export type DetailType = {
-  results: any,
+  results: EpisodeType[],
+}
+
+export type EpisodeType = {
+  artistIds: number[]
+  artistViewUrl: string
+  artworkUrl60: string
+  artworkUrl160: string
+  artworkUrl600: string
+  closedCaptioning: string
+  collectionId: number
+  collectionName: string
+  collectionViewUrl: string
+  contentAdvisoryRating: string
+  country: string
+  description: string
+  episodeContentType: string
+  episodeFileExtension: string
+  episodeGuid: string
+  episodeUrl: string
+  feedUrl: string
+  genres: { name: string, id: string }[]
+  kind: string
+  previewUrl: string
+  releaseDate: string
+  shortDescription: string
+  trackId: number
+  trackName: string
+  trackTimeMillis: number
+  trackViewUrl: string
+  wrapperType: string
 }

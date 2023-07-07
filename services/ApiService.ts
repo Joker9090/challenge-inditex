@@ -1,4 +1,4 @@
-import { DetailType, SongsList } from "@/models/mainModels";
+import { DetailType, PodcastList } from "@/models/mainModels";
 import axios from "axios";
 
 export type globalType = {
@@ -9,10 +9,20 @@ export const ApiUrls = {
   list: "https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json",
   detail :"https://itunes.apple.com/lookup?id=",
   detailConcat: "&media=podcast&entity=podcastEpisode",
+  allOrigins: "https://api.allorigins.win/get?url",
+
 }
 class ApiService {
   constructor(){
 
+  }
+
+  allOrigins(url: string) {
+    return `${ApiUrls.allOrigins}=${encodeURIComponent(url)}`
+  }
+  
+  parseAllOriginData(data: {contents: string, status: { url: string, http_code: number, content_type: string}}) {
+    return JSON.parse(data.contents)
   }
 
   errorHandler(url: string, e: string, reject:Function) {
@@ -21,9 +31,9 @@ class ApiService {
   }
 
   getList() {
-    return new Promise<SongsList>((resolve, reject) => {
+    return new Promise<PodcastList>((resolve, reject) => {
       axios.get(ApiUrls.list).then(response => {
-        resolve(response.data as SongsList)
+        resolve(response.data as PodcastList)
       }).catch((e) => this.errorHandler(ApiUrls.list,e,reject))
     })
   }
@@ -31,9 +41,9 @@ class ApiService {
   getDetail(id: string) {
     return new Promise<DetailType>((resolve, reject) => {
       const url = `${ApiUrls.detail}${id}${ApiUrls.detailConcat}`
-      axios.get(url).then(response => {
-        
-        resolve(response.data as DetailType)
+      axios.get(this.allOrigins(url)).then(response => {
+        console.log("response",response)
+        resolve(this.parseAllOriginData(response.data) as DetailType)
       }).catch((e) => this.errorHandler(url,e,reject))
     })
   }

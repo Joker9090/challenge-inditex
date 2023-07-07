@@ -1,15 +1,254 @@
 @import "./dependencies/bootstrap.min.css";
 @import "./layout.scss";
 
-.ListItem {
-  cursor: pointer;
+.List {
+  margin-bottom: 30px;
+  .searcher {
+    input {
+      width: 100%;
+      border-radius: 3px;
+      overflow: hidden;
+      outline: none;
+    }
+    span {
+      font-size: 10px;
+      color: grey;
+    }
+  }
+  .ListRow {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 20px;
+    @media screen and (max-width: 992px) {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+    }
+    @media screen and (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+    }
+    @media screen and (max-width: 400px) {
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-rows: repeat(1, 1fr);
+    }
+    .ListItem {
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 4px 8px;
+      border: 1px solid grey;
+      box-shadow: 0px 0px 20px rgb(208, 208, 208);
+      margin: 3px 0px;
+      border-radius: 6px;
+      width: 100%;
+      height: 100%;
+      & > span:nth-child(1) {
+        background-color: black;
+        color: white;
+        font-weight: bold;
+        height: 30px;
+        width: 30px;
+        position: absolute;
+        text-align: center;
+        line-height: 30px;
+        border-radius: 100%;
+        left: -3px;
+        top: -10px;
+      }
+      p {
+        span:nth-child(1) {
+          color: grey;
+          margin-right: 4px;
+        }
+        span:nth-child(2) {
+          color: grey;
+          margin-right: 4px;
+        }
+        &:nth-child(2) {
+          line-height: 16px;
+          font-size: 14px;
+        }
+        &:nth-child(3) {
+          margin-top: 10px;
+          font-size: 14px;
+          line-height: 16px;
+        }
+      }
+      img {
+        transition: all 0.2s ease;
+        margin: auto;
+        display: flex;
+        top: -17px;
+        position: relative;
+        border-radius: 100%;
+        border: 3px solid #a7a7a7;
+      }
+      &:hover {
+        box-shadow: 0px 0px 20px rgb(168, 168, 168);
+        img {
+          top: -20px;
+        }
+      }
+    }
+  }
+}
+
+.Detail {
+  h1 {
+    width: fit-content;
+    cursor: pointer;
+    span {
+      color: grey;
+      font-size: 12px;
+      margin-left: 4px;
+    }
+  }
+}
+.SideBar {
   transition: all 0.2s ease;
   padding: 4px 8px;
   border: 1px solid grey;
-  box-shadow: 0px 0px 20px grey;
+  box-shadow: 0px 0px 20px rgb(208, 208, 208);
   margin: 3px 0px;
   border-radius: 6px;
-  &:hover {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  & > span:nth-child(1) {
+    background-color: black;
+    color: white;
     font-weight: bold;
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    line-height: 30px;
+    border-radius: 100%;
+    left: -3px;
+    top: -10px;
+  }
+  div:nth-child(2) {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    p {
+      line-height: 16px;
+      font-size: 14px;
+    }
+    span:nth-child(1) {
+      font-size: 10px;
+      color: grey;
+      margin-right: 4px;
+    }
+    span:nth-child(2) {
+      font-size: 10px;
+      color: grey;
+      margin-right: 4px;
+    }
+  }
+  div:nth-child(3) {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    span:nth-child(1) {
+      font-size: 14px;
+      color: black;
+      font-weight: bold;
+      margin-right: 4px;
+    }
+    span:nth-child(3) {
+      font-size: 14px;
+      line-height: 16px;
+      display: block;
+      margin-right: 4px;
+    }
+    
+  }
+ 
+  img {
+    transition: all 0.2s ease;
+    margin: auto;
+    display: flex;
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 70%;
+  }
+ 
+}
+
+.Info {
+  .InfoList {
+    .InfoHead {
+      display: flex;
+      padding: 0px 10px;
+      // margin-right: 20px;
+      div:nth-child(1) {
+        font-weight: bold;
+        flex:4;
+      }
+      div:nth-child(2) {
+        font-weight: bold;
+        flex:2;
+      }
+      div:nth-child(3) {
+        font-weight: bold;
+        flex:1;
+      }
+    }
+  }
+  .InfoContent {
+    // max-height: 72vh;
+    // overflow: auto;
+  }
+}
+
+.Episode {
+  transition: all 0.2s ease;
+  box-shadow: 0px 0px 4px transparent;
+  // right: 20px;
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+  border: 1px solid grey;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  div:nth-child(1) {
+    transition: all 0.2s ease;
+    flex:4;
+  }
+  div:nth-child(2) {
+    opacity: 0.5;
+    flex:2;
+  }
+  div:nth-child(3) {
+    opacity: 0.5;
+    flex:1;
+  }
+  &:hover {
+    box-shadow: 0px 0px 4px black;
+    div:nth-child(1) {
+      font-weight: bold;
+    }
+  }
+}
+
+.Loader {
+  img {
+    animation: rotate 2s 0s linear infinite;
+  }
+}
+@keyframes rotate {
+  0% {
+    opacity: 0.2;
+    transform: rotate(0deg);
+  }
+  50% {
+    opacity: 0.9;
+  }  
+  100% {
+    opacity: 0.2;
+    transform: rotate(360deg);
   }
 }

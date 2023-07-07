@@ -32,7 +32,7 @@ const Home = ({
   }, [])
 
   const clickOnItem = (item: Entry) => {
-    router.push(`/song/${item.id.attributes['im:id']}`)
+    router.push(`/podcast/${item.id.attributes['im:id']}`)
   } 
 
   return (

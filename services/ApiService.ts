@@ -42,7 +42,6 @@ class ApiService {
     return new Promise<DetailType>((resolve, reject) => {
       const url = `${ApiUrls.detail}${id}${ApiUrls.detailConcat}`
       axios.get(this.allOrigins(url)).then(response => {
-        console.log("response",response)
         resolve(this.parseAllOriginData(response.data) as DetailType)
       }).catch((e) => this.errorHandler(url,e,reject))
     })

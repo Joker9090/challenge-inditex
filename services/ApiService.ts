@@ -25,6 +25,12 @@ class ApiService {
     return JSON.parse(data.contents)
   }
 
+  retryWithAllOrigins<T>(url: string,resolve: Function,reject: Function,e: any) {
+    axios.get(this.allOrigins(url)).then(response => {
+      resolve(this.parseAllOriginData(response.data) as T)
+    }).catch(e => this.errorHandler(ApiUrls.list,e,reject))
+  }
+
   errorHandler(url: string, e: string, reject:Function) {
     console.error(`[DEBUG] There was an error in ${url}`,e)
     reject()
@@ -32,18 +38,19 @@ class ApiService {
 
   getList() {
     return new Promise<PodcastList>((resolve, reject) => {
-      axios.get(ApiUrls.list).then(response => {
+      const url = ApiUrls.list;
+      axios.get(url).then(response => {
         resolve(response.data as PodcastList)
-      }).catch((e) => this.errorHandler(ApiUrls.list,e,reject))
+      }).catch((e) => this.retryWithAllOrigins<PodcastList>(url,resolve,reject,e))
     })
   }
 
   getDetail(id: string) {
     return new Promise<DetailType>((resolve, reject) => {
       const url = `${ApiUrls.detail}${id}${ApiUrls.detailConcat}`
-      axios.get(this.allOrigins(url)).then(response => {
-        resolve(this.parseAllOriginData(response.data) as DetailType)
-      }).catch((e) => this.errorHandler(url,e,reject))
+      axios.get(url).then(response => {
+        resolve(response.data as DetailType)
+      }).catch((e) =>  this.retryWithAllOrigins<DetailType>(url,resolve,reject,e)) 
     })
   }
 }

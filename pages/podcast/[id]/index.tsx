@@ -45,6 +45,12 @@ const Detail = ({ main, callDetail, callList }: DetailProps) => {
       router.push(`/podcast/${id}/episode/${i.trackId}`)
   }
 
+  const clickOnPodcastId = (e: any) => {
+    e.stopPropagation()
+    e.preventDefault()
+    router.push(`/podcast/${id}`)
+  }
+
   return (
     <div className="Detail">
       <div className='container-flud'>
@@ -54,12 +60,14 @@ const Detail = ({ main, callDetail, callList }: DetailProps) => {
           {(listStatus == ServerStatus.FETCH && detailStatus == ServerStatus.FETCH && detail && list && id) ? (
             <Shown>
               <div className="PodcastWrapper row">
-                <SideBar item={grabItemFromList(id)} />
+                <SideBar onClick={clickOnPodcastId} item={grabItemFromList(id)} />
                 <Info onClick={clickOnEpisode} detail={detail} />
               </div>
             </Shown>
           ) : (
-            <Loader />
+            <Shown>
+              <Loader />
+            </Shown>
           )}
         </div>
       </div>

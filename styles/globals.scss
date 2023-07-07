@@ -234,21 +234,9 @@
   }
 }
 
-.Loader {
-  img {
-    animation: rotate 2s 0s linear infinite;
-  }
-}
-@keyframes rotate {
-  0% {
-    opacity: 0.2;
-    transform: rotate(0deg);
-  }
-  50% {
-    opacity: 0.9;
-  }  
-  100% {
-    opacity: 0.2;
-    transform: rotate(360deg);
+.EpisodeInfo {
+  video {
+    width: 100%;
+    height: 40px;
   }
 }

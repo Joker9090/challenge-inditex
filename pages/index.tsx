@@ -1,5 +1,6 @@
 import { List } from '@/components/List';
 import { Loader } from '@/components/Loader';
+import { Shown } from '@/components/Shown';
 import { ServerStatus } from '@/models/globalModels';
 import { Entry, HomeProps } from '@/models/mainModels';
 import { callList } from '@/redux/actions/main';
@@ -51,7 +52,9 @@ const Home = ({
             {(listStatus == ServerStatus.FETCH && list) ? (
               <List onClick={clickOnItem} items={list.feed.entry} />
             ) : (
-              <Loader />
+              <Shown>
+                <Loader />
+              </Shown>
             )}
           </div>
         </div>

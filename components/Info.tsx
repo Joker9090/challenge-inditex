@@ -1,5 +1,6 @@
-import { DetailType } from "@/models/mainModels";
+import { DetailType, EpisodeType } from "@/models/mainModels";
 import { EpisodeLink } from "./Episode";
+import { Shown } from "./Shown";
 
 export const Info = ({ detail, onClick }: { onClick: Function, detail: DetailType }) => {
   const grabFirstData = detail.results[0];
@@ -20,8 +21,10 @@ export const Info = ({ detail, onClick }: { onClick: Function, detail: DetailTyp
           <div>Duration</div>
         </div>
         <div className="InfoContent">
-          {grabList.map((i: any) => (
-            <EpisodeLink key={i.trackId} item={i} onClick={onClick} />
+          {grabList.map((i: EpisodeType, index: number) => (
+            <Shown key={i.trackId} delay={index * 100}>
+              <EpisodeLink  item={i} onClick={onClick} />
+            </Shown>
           ))}
         </div>
       </div>

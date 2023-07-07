@@ -15,9 +15,9 @@ export const EpisodeLink = ({ item, onClick }: { item: EpisodeType, onClick: Fun
 export const EpisodeInfo = ({ episode }: { episode?: EpisodeType | null }) => {
   if (!episode) return <div className="col-12 col-md-4 col-lg-3"><Loader /></div>
   return (
-    <div className="col-12 col-md-8 col-lg-9  mt-4">
+    <div className="col-12 col-md-8 col-lg-9  mt-4 EpisodeInfo">
       <h2>{episode.trackName}</h2>
-      <p>{episode.shortDescription}</p>
+      <p>{episode.shortDescription || episode.description}</p>
       <video controls={true} autoPlay={true}>
         <source src={episode.previewUrl} type="audio/mpeg" />
       </video>

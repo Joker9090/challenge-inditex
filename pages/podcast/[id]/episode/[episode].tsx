@@ -63,12 +63,14 @@ const Detail = ({ main, callDetail, callList }: DetailProps) => {
           {(episodeID && listStatus == ServerStatus.FETCH && detailStatus == ServerStatus.FETCH && detail && list && id) ? (
             <Shown>
               <div className="PodcastWrapper row">
-                <SideBar item={grabItemFromList(id)} />
+                <SideBar onClick={clickOnPodcastId} item={grabItemFromList(id)} />
                 <EpisodeInfo episode={grabEpisodeFromList(episodeID)} />
               </div>
             </Shown>
           ) : (
-            <Loader />
+            <Shown>
+              <Loader />
+            </Shown>
           )}
         </div>
       </div>
